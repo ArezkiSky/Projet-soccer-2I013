@@ -1,0 +1,2 @@
+git remote add origin https://github.com/ArezkiSky/Projet-soccer-2I013.git
+git push -u origin master

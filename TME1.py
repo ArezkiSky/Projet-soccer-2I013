@@ -4,6 +4,11 @@ Created on Mon Jan 19 17:19:58 2015
 
 @author: 3200982
 """
+
+from soccersimulator import pyglet
+from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerStrategy, SoccerAction
+from soccersimulator import PygletObserver,ConsoleListener,LogListener
+
 class RandomStrategy(SoccerStrategy):
     def __init__(self):
         self.name="Random"
@@ -22,14 +27,11 @@ class RandomStrategy(SoccerStrategy):
         return RandomStrategy()
 
 
-from soccersimulator import pyglet
-from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerStrategy, SoccerAction
-from soccersimulator import PygletObserver,ConsoleListener,LogListener
 
 
 class FonceurStrategy(SoccerStrategy):
     def __init__(self):
-        self.name="Random"
+        self.name="Fonceur"
     def start_battle(self,state):
         pass
     def finish_battle(self,won):
@@ -51,15 +53,6 @@ class FonceurStrategy(SoccerStrategy):
         return FonceurStrategy()
 
 
-team1=SoccerTeam("team1")
-team2=SoccerTeam("team2")
-team1.add_player(SoccerPlayer("t1j1",FonceurStrategy()))
-team2.add_player(SoccerPlayer("t2j1",FonceurStrategy()))
-team1.add_player(SoccerPlayer("t1j2",FonceurStrategy()))
-team2.add_player(SoccerPlayer("t2j2",FonceurStrategy()))
-battle=SoccerBattle(team1,team2)
-obs=PygletObserver()
-obs.set_soccer_battle(battle)
-pyglet.app.run()
+
 
 
