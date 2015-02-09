@@ -13,13 +13,13 @@ from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, So
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from TME2 import GoalStrategy
 from TME1 import FonceurStrategy
-from base_strategie import AllerVersPoint, Tirer, ComposeStrategy, PlacementDefenseur
+from base_strategie import AllerVersPoint, Tirer, ComposeStrategy, PlacementDefenseur, Degagement
 
 
 team1=SoccerTeam("team1")
 team2=SoccerTeam("team2")
-team1.add_player(SoccerPlayer("t1j1",ComposeStrategy(AllerVersPoint(Vector2D(GAME_WIDTH/2,GAME_HEIGHT/2)), Tirer())))
-team2.add_player(SoccerPlayer("t2j1",PlacementDefenseur()))
+team1.add_player(SoccerPlayer("t1j1",FonceurStrategy()))
+team2.add_player(SoccerPlayer("t2j1",ComposeStrategy(PlacementDefenseur(),Degagement())))
 
 battle=SoccerBattle(team1,team2)
 obs=PygletObserver()

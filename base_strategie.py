@@ -1,7 +1,7 @@
 from soccersimulator import pyglet
-from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerStrategy, SoccerAction
+from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerStrategy, SoccerAction, GAME_WIDTH, GAME_HEIGHT
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
-
+import math
 
 
 class AllerVersPoint(SoccerStrategy) :
@@ -81,13 +81,13 @@ class PlacementDefenseur(SoccerStrategy) :
     def __init__(self) :
          SoccerStrategy.__init__(self,"PlacementDefenseurStrat")
     def compute_strategy (self, state, player, teamid) :
-        diff = state.ball.position - player.position
-        diffmilieu = Vector2D(GAME_WIDTH/2,GAME_HEIGHT/2) - player.position
-        if diff.norm > 5 :
+        diff = state.ball.position - state.get_goal_center(teamid)
+        
+        if diff.norm < 40 :
             acceleration = state.ball.position + state.get_goal_center(teamid) - player.position - player.position 
             shoot= Vector2D(0,0)
         else :
-            while diffmilieu.norm > 0 :
+
                 acceleration = state.ball.position - player.position
                 shoot= Vector2D(0,0)     
                 
@@ -95,18 +95,38 @@ class PlacementDefenseur(SoccerStrategy) :
         
         return action
         
-     def start_battle(self,state):
+    def start_battle(self,state):
         pass
-     def finish_battle(self,won):
+    def finish_battle(self,won):
         pass
-     def copy(self):
+    def copy(self):
         return PlacementDefenseur()
-     def create_strategy(self):
+    def create_strategy(self):
         return PlacementDefenseur()
             
             
             
-            
+class Degagement(SoccerStrategy) :
+    def __init__(self) :
+         SoccerStrategy.__init__(self, "degagement")
+    def compute_strategy (self, state, player, teamid) :
+        diff = state.ball.position - state.get_goal_center(teamid)
+        acceleration = Vector2D(0,0)
+        shoot = state.get_goal_center(self.idteamadverse(teamid)) - player.position 
+                
+        action = SoccerAction(acceleration,shoot)
+        
+        return action
+        
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def copy(self):
+        return PlacementDefenseur()
+    def create_strategy(self):
+        return PlacementDefenseur()
+                       
             
             
             
