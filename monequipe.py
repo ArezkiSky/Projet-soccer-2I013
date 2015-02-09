@@ -7,10 +7,10 @@ from base_strategie import AllerVersPoint, Tirer, ComposeStrategy, PlacementDefe
 
 
 team1=SoccerTeam("Minute Maid Tropical")
-team1.add_player(SoccerPlayer("t1j1",GoalStrategy()))
+team1.add_player(SoccerPlayer("t1j1",FonceurStrategy()))
 
 team2=SoccerTeam("Minute Maid Orange")
-team2.add_player(SoccerPlayer("t2j1",GoalStrategy()))
+team2.add_player(SoccerPlayer("t2j1",ComposeStrategy(PlacementDefenseur(),Degagement())))
 team2.add_player(SoccerPlayer("t2j2",FonceurStrategy()))
 
 
