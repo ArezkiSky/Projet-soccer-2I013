@@ -83,7 +83,7 @@ class PlacementDefenseur(SoccerStrategy) :
     def compute_strategy (self, state, player, teamid) :
         diff = state.ball.position - state.get_goal_center(teamid)
         
-        if diff.norm < 40 :
+        if diff.norm > 60 :
             acceleration = state.ball.position + state.get_goal_center(teamid) - player.position - player.position 
             shoot= Vector2D(0,0)
         else :
@@ -109,11 +109,17 @@ class PlacementDefenseur(SoccerStrategy) :
 class Degagement(SoccerStrategy) :
     def __init__(self) :
          SoccerStrategy.__init__(self, "degagement")
+         
+    def idteamadverse(self,teamid) :
+        if(teamid == 1) :
+            return 2
+        else : 
+            return 1
+
     def compute_strategy (self, state, player, teamid) :
-        diff = state.ball.position - state.get_goal_center(teamid)
         acceleration = Vector2D(0,0)
         shoot = state.get_goal_center(self.idteamadverse(teamid)) - player.position 
-                
+        shoot = Vector2D(GAME_WIDTH/2 * math.cos(GAME_WIDTH/2), GAME_HEIGHT/2 * math.sin(GAME_HEIGHT/2))        
         action = SoccerAction(acceleration,shoot)
         
         return action
