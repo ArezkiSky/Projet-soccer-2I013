@@ -1,7 +1,7 @@
 from soccersimulator import SoccerBattle, SoccerPlayer, SoccerTeam
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from soccersimulator import pyglet
-from strats import RandomStrategy
+from base_strategie import RandomStrategy
 from TME2 import GoalStrategy
 from TME1 import FonceurStrategy
 
