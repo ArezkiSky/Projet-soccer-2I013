@@ -6,7 +6,7 @@ from base_strategie import *
 
 
 team1=SoccerTeam("Minute Maid Tropical")
-team1.add_player(SoccerPlayer("t1j1",FonceurStrategy()))
+team1.add_player(SoccerPlayer("t1j1",Goal1v1Strategy()))
 
 team2=SoccerTeam("Minute Maid Orange")
 team2.add_player(SoccerPlayer("t2j1",DefenseurStrategy()))

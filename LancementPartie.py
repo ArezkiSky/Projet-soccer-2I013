@@ -16,14 +16,13 @@ from base_strategie import *
 
 team1=SoccerTeam("team1")
 team2=SoccerTeam("team2")
-team1.add_player(SoccerPlayer("t1j1",FonceurStrategy()))
-team1.add_player(SoccerPlayer("t1j4",DefenseurStrategy()))
-team1.add_player(SoccerPlayer("t1j3",GoalStrategy()))
-team1.add_player(SoccerPlayer("t1j2",FonceurStrategy()))
+team1.add_player(SoccerPlayer("t1j1",Goal1v1Strategy()))
+team1.add_player(SoccerPlayer("t1j2",DefenseurStrategy()))
 team2.add_player(SoccerPlayer("t2j1",FonceurStrategy()))
-team2.add_player(SoccerPlayer("t2j2",FonceurStrategy()))
-team2.add_player(SoccerPlayer("t2j3",GoalStrategy()))
-team2.add_player(SoccerPlayer("t2j4",DefenseurStrategy()))
+team2.add_player(SoccerPlayer("t2j2",DribleStrategy()))
+
+
+
 
 battle=SoccerBattle(team1,team2)
 obs=PygletObserver()
