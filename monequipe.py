@@ -2,6 +2,7 @@ from soccersimulator import SoccerBattle, SoccerPlayer, SoccerTeam
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from soccersimulator import pyglet
 from base_strategie import *
+from ToolBox import *
 
 
 
