@@ -47,14 +47,7 @@ class Degagement(SoccerStrategy):
 
 # Le joueur tire autour de l'adversaire en face de lui
 
-class Contournement(StrategieAvecUtilitaire) :
-    def __init__(self) :
-        SoccerStrategy.__init__(self, "ContournerStrat")
-    def compute_strategy_utilitaire (self, u) :
-        shoot = Vector2D.create_polar(u.versLesButsAdverses.angle + 45,1)
-        return u.tirer(shoot)
-            
-        
+
 # Composition de deux stratègies, l'une basée sur le placement, l'autre sur le tir
 
 class ComposeStrategy(StrategieAvecUtilitaire) :
@@ -119,7 +112,7 @@ class FonceurStrategy(StrategieAvecUtilitaire):
     def compute_strategy_utilitaire (self, u) :
         return self.fonceurstrategy.compute_strategy_utilitaire(u)
 
-# Stratégie de défenseur 2v2 : combinaison PlacementDefenseur + Passe
+# Stratégie de défenseur 2v2 : combinaison PlacementDefenseur + passe
 
 class DefenseurStrategy(StrategieAvecUtilitaire):
     def __init__(self):
@@ -140,13 +133,17 @@ class Goal1v1Strategy(StrategieAvecUtilitaire):
         else : 
             return SoccerAction(u.versLaBalle(), u.versLesButsAdverses())  
 
+# Stratégie de goal 2v2 : combinaison PlacementGoal + Passe
+
+
+
+
 # Strtégie de dribleur : Combinaison AllerVersBallon + Drible(contournement)
 
 class DribleStrategy(StrategieAvecUtilitaire):
     def __init__(self):
         self.dribleStrategy = ComposeStrategy(AllerVersBallon(), Contournement())
-        self.fonceurstrategy = ComposeStrategy(AllerVersBallon(), Tirer())
     def compute_strategy_utilitaire (self, u) :
-        if(u.aLaBalle) :
-            return self.fonceurstrategy.compute_strategy_utilitaire(u)
         return self.dribleStrategy.compute_strategy_utilitaire(u)
+        
+        

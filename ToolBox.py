@@ -101,25 +101,23 @@ class Utilitaire :
         def versJoueurLePlusProche(self) :
             return self.joueurLePlusProche().position - self.player.position
             
-# Position du joueur adverse le plus proche
 
-        def posJoueurAdverse(self) :
-            dist = 9999
-            vec = Vector2D(0,0)
-            if(self.team == 2):
-                for p in self.state.team1 :
-                    distmebut = self.state.get_goal_center(adversaire()) - self.player.position
-                    distluibut = self.state.get_goal_center(adversaire()) - p.position
-                    distmelui = p.position - self.player.position
-                    if(distluibut.norm < distmebut.norm and distmelui.norm < dist):
-                        dist = distmelui.norm
-                        vec = p.position
+# Indique si mon équipe possède le ballon ou non
+
+        def onALaBalle(self):
+            x = 12345
+            for p in self.state.team1 :
+                    distanceDuBallon = self.state.ball.position - p.position
+                    if(distanceDuBallon.norm < x):
+                        x = distanceDuBallon.norm
+            y = 12345
+            for q in self.state.team2 :
+                    distanceDuBallon2 = self.state.ball.position - q.position
+                    if(distanceDuBallon.norm < x):
+                        y = distanceDuBallon2.norm
+            if(((x < y and self.team == 1) or (x > y and self.team == 2)) and y < GAME_WIDTH * 0.2):
+                return True
             else:
-                for p in self.state.team2 :
-                    distmebut = self.state.get_goal_center(outils.IDTeamOp(self.team)) - self.player.position 
-                    distluibut = self.state.get_goal_center(outils.IDTeamOp(self.team)) - p.position
-                    distmelui = p.position - self.player.position
-                    if(distluibut.norm < distmebut.norm and distmelui.norm < dist):
-                        dist = distmelui.norm
-                        vec = p.position
-            return vec
+                return False
+            
+        
