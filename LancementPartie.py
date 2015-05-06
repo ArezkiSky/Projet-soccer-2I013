@@ -9,20 +9,20 @@ Created on Mon Jan 26 18:48:43 2015
 
 
 from soccersimulator import pyglet
-from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerStrategy, SoccerAction, GAME_WIDTH, GAME_HEIGHT
+from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerStrategy, SoccerAction, GAME_WIDTH, GAME_HEIGHT, InteractStrategy, TreeStrategy
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from base_strategie import *
 
 
 team1=SoccerTeam("team1")
 team2=SoccerTeam("team2")
-team1.add_player(SoccerPlayer("t1j1",Goal1v1Strategy()))
-team1.add_player(SoccerPlayer("t1j2",DefenseurStrategy()))
+team2.add_player(SoccerPlayer("t2j1",DefenseurTMEsolo("t1j1")))
 
-team2.add_player(SoccerPlayer("t2j1",FonceurStrategy()))
-team2.add_player(SoccerPlayer("t2j2",FonceurStrategy()))
+list_key_player1=['a','z','e']
+list_strat_player1=[Goal2v2Strategy(),FonceurStrategy(), ButeurStrategy()]
+inter_strat_player1=InteractStrategy(list_key_player1,list_strat_player1,"joueur1")
 
-
+team1.add_player(SoccerPlayer("t1j1",inter_strat_player1,))
 
 
 battle=SoccerBattle(team1,team2)

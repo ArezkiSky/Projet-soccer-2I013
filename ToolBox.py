@@ -26,6 +26,31 @@ class Utilitaire :
             else : 
                 return 1
 
+# Position de la balle 
+
+        def posBalle(self) :
+            return self.state.ball.position
+            
+# Vecteur de la direction de la balle
+        
+        def vectBalle(self) :
+            return self.state.ball.speed
+            
+# Position du Joueur
+        
+        def posJoueur(self) :
+            return self.player.position
+            
+# Milieu Terrain horizontal
+        
+        def milieuTH(self) :
+            return GAME_HEIGHT/2
+            
+# Milieu Terrain Vertical
+
+        def milieuTV(self) :
+             return GAME_WIDTH/2
+             
 # Mon joueur est à portée pour tirer la balle, "il a la balle"
 
         def aLaBalle(self) :
@@ -35,30 +60,56 @@ class Utilitaire :
 
         def versUnPoint(self, direction) :
             return direction - self.player.position
+            
 # Vecteur en direction de la Balle
         
         def versLaBalle(self) :
            return self.state.ball.position-self.player.position
-          
+           
+# Distance à la balle
+
+        def distanceBallon(self):
+            return (self.player.position-self.state.ball.position).norm
+
+# Disatnce joueur de mon but
+
+        def distanceMonBut(self):
+            return (self.state.get_goal_center(self.teamid)-self.player.position).norm
+
+# Distance du but adverse
+        def distanceButAdverse(self):
+            return (self.state.get_goal_center(3-self.teamid)-self.player.position).norm
+
 # Vecteur en direction des buts adverses
 
         def versLesButsAdverses(self) :
             return self.state.get_goal_center(self.adversaire()) - self.player.position
-            
+
+# Vecteur de la direction des buts adverses a partir du ballon
+
+        def versButsAdversesBallon(self) :
+            return self.state.get_goal_center(self.adversaire()) - self.state.ball.position+self.state.ball.speed    
+
 # Vecteur de la distance entre mes buts et le ballon
         
         def distanceBallonMesButs(self) :
-            return self.state.ball.position - self.state.get_goal_center(self.teamid)
+             return (self.state.get_goal_center(self.teamid)-self.state.ball.position).norm
 
 # Vecteur de la distance entre le ballon et le joueur adverse 
 
-        def distanceBallonAdversaire(self) :
-            return self.state.ball.position - self.player.adversaire().position
+        def distanceBallonAdversaire(self, adversaire) :
+            return self.state.ball.position - self.adversaire.position
             
 # Vecteur de la distance entre mon joueur et les buts adverses
 
         def distanceJoueurButAdverse(self) :
-            return self.state.get_goal_center(adversaire()) - self.player.position
+            return self.state.get_goal_center(self.adversaire()) - self.player.position
+            
+# Vecteur de la distance entre le ballon et les butes adverses
+
+        def distanceBallonButAdverse(self) :
+            return (self.state.get_goal_center(3-self.teamid)-self.state.ball.position).norm
+        
                                 
 # Mon joueur ne fait rien
         
@@ -119,5 +170,12 @@ class Utilitaire :
                 return True
             else:
                 return False
-            
+                
+def quiABalle(self):
+    p1= min(state.team1.players, key=distanceballon())
+    p2= min(state.team2.players, key=distanceballon())    
+    if distABalle(p1)<distABalle(p2):
+        return teamid==1
+    else:
+        return teamid==2
         
