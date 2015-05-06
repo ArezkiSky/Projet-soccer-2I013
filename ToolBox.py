@@ -178,4 +178,23 @@ def quiABalle(self):
         return teamid==1
     else:
         return teamid==2
-        
+
+
+
+def distanceJoueurIce(self) :
+    for z in self.state.dangerzone[z] if z.type == "ice" :
+        return z.bottom_left + z.diagonal/2) - self.player.position
+
+
+def distanceJoueurMud(self) :
+    for z in self.state.dangerzone[z] if z.type == "mud" :
+        return z.bottom_left + z.diagonal/2) - self.player.position
+
+def distanceJoueuradvIce(self) :
+    for z in self.state.dangerzone[z] if z.type == "ice" :
+        return z.bottom_left + z.diagonal/2) - self.player.teamid(adversaire).position
+
+def distanceJoueuradvMud(self) :
+    for z in self.state.dangerzone[z] if z.type == "mud" :
+        return z.bottom_left + z.diagonal/2) - self.player.teamid(adversaire).position
+         

@@ -16,7 +16,7 @@ from base_strategie import *
 
 team1=SoccerTeam("team1")
 team2=SoccerTeam("team2")
-team2.add_player(SoccerPlayer("t2j1",DefenseurTMEsolo("t1j1")))
+team2.add_player(SoccerPlayer("t2j1",FonceurIce()))
 
 list_key_player1=['a','z','e']
 list_strat_player1=[Goal2v2Strategy(),FonceurStrategy(), ButeurStrategy()]

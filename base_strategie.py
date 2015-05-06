@@ -26,7 +26,7 @@ class AllerVersPoint(StrategieAvecUtilitaire) :
 class AllerVersBallon(StrategieAvecUtilitaire):
     def __init__(self):
         self.name="AllerVersBallonStrat"
-    def compute_strategy_utilitaire (self, u) :      
+    def compute_strategy_utilitaire (self, u) :
         return u.bouger(u.versLaBalle())
         
 # Le joueur Tire vers les buts     
@@ -168,6 +168,66 @@ class DefenseurTMEsolo (StrategieAvecUtilitaire) :
             acceleration = u.entreBalleEtBut()          
         
         return u.bouger(acceleration)       
+        
+        
+        
+class FonceurIceMud(StrategieAvecUtilitaire) :
+    def __init__(self) :
+        SoccerStrategy.__init__(self, "FonceurIceMud")
+        
+    def compute_strategy_utilitaire(self, u) :
+        for z in u.state.danger_zones :
+            if u.posBalle() > z.bottom_left and u.posBalle() < z.bottom_left+ u.z.diagonal and z.type == "ice" :
+                return u.bouger(u.state.danger_zones[z].bottom_left, Vector2D(0,0))
+            else :
+                u.posBalle() > z.bottom_left and u.posBalle() < z.bottom_left+ z.diagonal and z.type == "mud":
+                return u.bougertirer(u.versLaBalle(), u.versLesButsAdverses())       
+                
+            
+         
+class PlacementDefenseurIceMud(StrategieAvecUtilitaire) :
+    def __init__(self) :
+        SoccerStrategy.__init__(self, "PlacementDefenseurIceMud")
+        
+    def compute_strategy_utilitaire(self, u) :
+         if u.distanceBallonMesButs() > 20 :
+            return u.bouger(u.entreBalleEtBut())
+        else :            
+            for z in u.state.danger_zones :
+                if u.posBalle() z.bottom_left and u.posBalle() < z.bottom_left+ z.diagonal and z.type == "ice" :
+                    return u.bouger(u.state.danger_zones[z].bottom_left)
+                else :
+                    if u.posBalle() > z.bottom_left and u.posBalle() < z.bottom_left+ z.diagonal and z.type == "mud":
+                        return u.bouger(u.versLaBalle())    
+                    else :
+                        return u.bouger(u.versLaBalle())
+
+class DegagementIceMud(StrategieAvecUtilitaire) :
+      def __init__(self) :
+          SoccerStrategy.__init__(self, "DegagementIceMud")
+          
+      def compute_strategy_utilitaire(self, u) :
+          shoot = Vector2D(0,0) 
+          for z in u.state.danger_zones :
+              if u.aLaBalle() :        
+                    if u.state.ball.speed.y > z.bottom_left and u.posBalle() < z.bottom_left+ z.diagonal and z.type == "ice" :
+                        shoot = Vector2D.create_polar(u.versButsAdversesBallon().angle - pi/4.0, 100.0)
+                    else : 
+                        shoot = Vector2D.create_polar(u.versButsAdversesBallon().angle + pi/4.0, 100.0)
+               return u.tirer(shoot) 
+                
+          
+        
+    
+    
+                        
+class DefenseurIceMud(StrategieAvecUtilitaire) :
+    def __init__(self):
+        self.defenseuricemudstrategy = ComposeStrategy(PlacementDefenseurIceMud(), DegagementIceMud())
+    def compute_strategy_utilitaire (self, u) :
+        return self.defenseurstrategy.compute_strategy_utilitaire(u)
+        
+        
         
         
         
